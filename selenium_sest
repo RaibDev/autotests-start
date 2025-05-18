@@ -1,0 +1,22 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+linkToTest = "https://www.saucedemo.com/"
+
+loginData = ["standard_user", "secret_sauce"]
+
+with webdriver.Chrome() as browser:
+    browser.get(linkToTest)
+
+    try:
+        userNameInput = browser.find_element(By.XPATH, '//form//input[@name="user-name"]').send_keys(loginData[0])
+        passwordInput = browser.find_element(By.XPATH, '//form//input[@name="password"]').send_keys(loginData[1])
+        formButton = browser.find_element(By.XPATH, '//form//input[@type="submit"]').click()
+
+    except Exception as err:
+        print("error", err)
+
+    finally:
+        time.sleep(15)
+        browser.quit()
